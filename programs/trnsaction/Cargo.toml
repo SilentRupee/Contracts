@@ -20,4 +20,13 @@ idl-build = ["anchor-lang/idl-build","anchor-spl/idl-build"]
 [dependencies]
 anchor-lang = {version = "0.31.1", features = ["init-if-needed"]}
 anchor-spl = "0.31.1"
+ark-bn254 = "0.4.0"
+ark-groth16 = "0.4.0"
+ark-serialize = "0.4.0"
+ark-std = "0.4.0"
+ark-ff = "0.4.0"
+ark-ec = "0.4.0"
+sha2 = "0.10"
+aes-gcm = "0.10"
+rand = "0.8"
 

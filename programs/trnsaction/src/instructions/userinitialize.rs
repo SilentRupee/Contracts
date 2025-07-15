@@ -6,17 +6,16 @@ use crate::{state::Initializes, User};
 pub struct Userinitialize<'info>{
     #[account(mut)]
     pub signer:Signer<'info>,
+    #[account(mut)]
     pub owner:SystemAccount<'info>,
-    pub  mint:Account<'info,Mint>,
-    #[account(seeds=[b"pool",owner.key().as_ref()],bump=vault.bump)]
+    #[account(init,payer=signer,seeds=[b"pool",signer.key().as_ref()],bump,space=8+ Initializes::INIT_SPACE)]
     pub vault:Account<'info,Initializes>,
-    #[account(init,payer=signer,seeds=[b"escrow",signer.key().as_ref()],bump,space=User::INIT_SPACE)]
-    pub escrow:Account<'info,User>,
-    #[account(init,associated_token::authority=escrow,associated_token::token_program=token_program,associated_token::mint=mint,payer=signer)]
-    pub user_usdc:Account<'info,TokenAccount>,
+    pub mint:Account<'info,Mint>,
+    #[account(init,payer=signer,associated_token::mint=mint,associated_token::token_program=token_program,associated_token::authority=vault)]
+    pub usdc_ata:Account<'info,TokenAccount>,
     pub system_program:Program<'info,System>,
-     pub token_program:Program<'info,Token>,
-     pub associated_token_program:Program<'info,AssociatedToken>
+    pub token_program:Program<'info,Token>,
+    pub associated_token_program:Program<'info,AssociatedToken>
 }
 impl<'info> Userinitialize<'info>{
     pub fn initialize(&mut self,seeds:u64,bump:&UserinitializeBumps) -> Result<()>{
