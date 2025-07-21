@@ -11,7 +11,7 @@ pub struct Initialize<'info>{
     pub vault:Account<'info,Initializes>,
     pub mint:Account<'info,Mint>,
     #[account(init,payer=signer,associated_token::mint=mint,associated_token::token_program=token_program,associated_token::authority=vault)]
-    pub usdc_ata:Account<'info,TokenAccount>,
+    pub vault_ata:Account<'info,TokenAccount>,
     pub system_program:Program<'info,System>,
     pub token_program:Program<'info,Token>,
     pub associated_token_program:Program<'info,AssociatedToken>
